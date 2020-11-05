@@ -1,0 +1,44 @@
+{
+	"books": [
+			{
+				"shelf-one-column-zero": [
+				{
+					"id": 0,
+					"isbn": "012345",
+					"title": "Title of Book One",
+					"author": "Name of Author",
+					"dimensions": {
+						"height": 10,
+						"spine-width": 2,
+						"book-width": 6
+					},
+					"spine-background": "#C0272D"
+				},
+				{
+					"id": 1,
+					"isbn": "007700",
+					"title": "Title of Book Two",
+					"author": "Name of Author Two",
+					"dimensions": {
+						"height": 10,
+						"spine-width": 2,
+						"book-width": 6
+					},
+					"spine-background": "#BCCBD3"
+				},
+				{
+					"id": 2,
+					"isbn": "987654",
+					"title": "Title of Book Three",
+					"author": "Name of Three",
+					"dimensions": {
+						"height": 10,
+						"spine-width": 2,
+						"book-width": 6
+					},
+					"spine-background": "#E5E5E5"
+				}
+			]
+		}
+	]
+}

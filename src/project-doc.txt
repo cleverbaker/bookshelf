@@ -1,0 +1,51 @@
+Project Title:
+
+Books on a Bookshelf
+
+
+
+Description:
+
+On the backdrop of a bookshelf image asset,
+
+Generate a rounded rectangle shape that represents the spine of a book,
+
+based on the order and details of JSON data.
+
+
+
+An API of JSON data will eventually feed this web page. For now, use the
+
+sample-data-one.json and sample-data-two.json files to create a demo widget
+
+that generates SVG books on a bookshelf where the output looks like 
+
+sample-data-one.html and sample-data-two.html
+
+
+
+Project's Functional Purpose:
+
+This code will be used for a book sorting and a visual inventory.
+
+
+
+Work Scope:
+
+Three hours of dev time.
+
+
+
+Payments:
+
+Work is for three hours of dev time for $35/hour. Submit an invoice before starting work. Invoice will be paid the same day as work completion.
+
+
+
+Bonus payments for GitHub commits made within four hours of starting work:
+
+First GitHub commit to project branch = $10
+
+Second GitHub commit to project branch = $15
+
+Submit final stable GitHub commit to project branch = $20
