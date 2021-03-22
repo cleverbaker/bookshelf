@@ -16,14 +16,23 @@
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
+<!--  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">-->
 
 	<style>
 		.book:hover {
 			stroke-width: 2;
 			cursor: pointer;
 		}
+
+        .dev-book {
+          display: inline-block;
+          margin: 5px;
+          min-width: 6px;
+          min-height: 46px;
+          max-width: 36px;
+          max-height: 146px;
+        }
 	</style>
   <meta name="theme-color" content="#fafafa">
 </head>
@@ -83,10 +92,80 @@
 </svg>
 
 </div>
-  <script src="js/vendor/modernizr-3.11.3.min.js"></script>
-  <script src="js/app.js"></script>
-  
+
+<div class="book" style="width: 20px; height: 100px; background-color: #007fff; border: 2px solid grey"></div>
+
+<hr class="sep">
+<div id="book-shelf-box"></div>
+<div id="book-shelf-box-sorted"></div>
+
+<script src="js/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+
+<!--  <script src="js/vendor/modernizr-3.11.3.min.js"></script>-->
+<!--  <script src="js/app.js"></script>-->
+
+end
+
   <script>
+
+    $body = $("body");
+    $bookshelf = $("#book-shelf-box");
+    var book_n = document.createElement("div");
+
+    var n = 100;
+
+    var rgb_array = [];
+    var hsl_array = [];
+
+    var color = "";
+
+    var w, h, r, g, b;
+
+    for (var i = 0; i < n; i++) {
+
+      r = getRandomInt(255);
+      //r = 0;
+      g = getRandomInt(255);
+      //g = 0;
+      b = getRandomInt(255);
+
+      rgb_array.push([r, g, b])
+
+
+      //color = "rgb(" + r + "," + g + "," + b + ")";
+      color = rgbToHex( r, g, b);
+
+      w = 2 + (2 * i);
+      h = 10 + (2 * i);
+
+      $bookshelf.append("<div class='dev-book b" + i + "' style='width: " + w + "px; height: " + h + "px; background-color: " + color + "'></div>");
+
+      //console.log(rgbToHsl(r,g,b));
+
+      hsl_array.push( rgbToHsl(r,g,b, i) );
+
+      //console.log(hsl_array);
+
+    }
+    $bookshelf.clone().prop('id','book-shelf2').appendTo( "body" );
+
+    //console.log(hsl_array);
+
+    hsl_array.sort(compareThirdColumn);
+
+    console.log(hsl_array);
+
+    for (i = 0; i < hsl_array.length; i++) {
+      $("#book-shelf2 .b"+hsl_array[i][3]).css("border","0px solid black").appendTo("#book-shelf-box-sorted");
+      if (i % 20 === 0) {
+        console.log('hr? ', i);
+        var my_hr = document.createElement("hr");
+        $(my_hr).appendTo("#book-shelf-box-sorted");
+      }
+    }
+
+   // $bookshelf.append("<div class='dev'></div>");
 	  var bookSortData = {
 	"books": [
 			{
@@ -241,6 +320,66 @@
 		}
 	]
 };
+
+      $( ".book" ).draggable({
+        addClasses: true
+      });
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+
+    function componentToHex(c) {
+      var hex = c.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+
+      function rgbToHsl(r, g, b, i) {
+        r /= 255, g /= 255, b /= 255;
+
+        var max = Math.max(r, g, b), min = Math.min(r, g, b);
+        var h, s, l = (max + min) / 2;
+
+        if (max == min) {
+          h = s = 0; // achromatic
+        } else {
+          var d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+          switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+          }
+
+          h /= 6;
+        }
+
+        return [ h, s, l, i ];
+      }
+
+    function compareSecondColumn(a, b) {
+      if (a[1] === b[1]) {
+        return 0;
+      }
+      else {
+        return (a[1] < b[1]) ? -1 : 1;
+      }
+    }
+
+    function compareThirdColumn(a, b) {
+      if (a[2] === b[2]) {
+        return 0;
+      }
+      else {
+        return (a[2] < b[2]) ? -1 : 1;
+      }
+    }
 	  </script>
 
 
