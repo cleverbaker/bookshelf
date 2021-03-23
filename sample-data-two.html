@@ -94,7 +94,7 @@
 </div>
 
 <div class="book" style="width: 20px; height: 100px; background-color: #007fff; border: 2px solid grey"></div>
-
+<a href=#" class="sort">sort</a>
 <hr class="sep">
 <div id="book-shelf-box"></div>
 <div id="book-shelf-box-sorted"></div>
@@ -148,7 +148,7 @@ end
       //console.log(hsl_array);
 
     }
-    $bookshelf.clone().prop('id','book-shelf2').appendTo( "body" );
+    $bookshelf.clone().prop('id','book-shelf2').appendTo( $body );
 
     //console.log(hsl_array);
 
@@ -164,6 +164,8 @@ end
         $(my_hr).appendTo("#book-shelf-box-sorted");
       }
     }
+
+
 
    // $bookshelf.append("<div class='dev'></div>");
 	  var bookSortData = {
@@ -363,6 +365,15 @@ end
         return [ h, s, l, i ];
       }
 
+    function compareFirstColumn(a, b) {
+      if (a[0] === b[0]) {
+        return 0;
+      }
+      else {
+        return (a[0] < b[0]) ? -1 : 1;
+      }
+    }
+
     function compareSecondColumn(a, b) {
       if (a[1] === b[1]) {
         return 0;
@@ -380,6 +391,73 @@ end
         return (a[2] < b[2]) ? -1 : 1;
       }
     }
+
+    function hueSort() {
+      var sortedRgbArr = hsl_array.slice(0, 20);
+
+      sortedRgbArr.sort(function (c1, c2) {
+        // Sort by hue
+        return c1.color[0] - c2.color[0];
+      }).map(function (data) {
+        // Retrieve original RGB color
+        return hsl_array[data.index];
+      });
+      console.log("sortedRgbArr", sortedRgbArr);
+
+      for (var z = 0; z < hsl_array.length; z++) {
+        $("#book-shelf-box-sorted .b" + sortedRgbArr[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+    }
+
+
+    $(".sort").on("click", function(e){
+      e.preventDefault()
+      $("body").find("#book-shelf-box-sorted").clone().prop('id','book-shelf3').css({"margin": "20px auto", "background-color": "#DDD"}).appendTo( $body );
+      var sortedRgbArr = hsl_array.slice(0, 19);
+      sortedRgbArr.sort(compareFirstColumn);
+      console.log(sortedRgbArr);
+      for (var z = 0; z < sortedRgbArr.length; z++) {
+        $("#book-shelf-box-sorted .b" + sortedRgbArr[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+
+
+      var my_hr2 = document.createElement("hr");
+      $(my_hr2).appendTo($body);
+
+      var sortedRgbArr2 = hsl_array.slice(20, 39);
+      sortedRgbArr2.sort(compareFirstColumn);
+      for ( z = 0; z < sortedRgbArr2.length; sortedRgbArr2++) {
+        $("#book-shelf3 .b" + sortedRgbArr2[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+
+      var my_hr3 = document.createElement("hr");
+      $(my_hr3).appendTo($body);
+
+      sortedRgbArr = hsl_array.slice(40, 59);
+      sortedRgbArr.sort(compareFirstColumn);
+      for ( z = 0; z < sortedRgbArr.length; z++) {
+        $("#book-shelf3 .b" + sortedRgbArr[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+
+      var my_hr4 = document.createElement("hr");
+      $(my_hr4).appendTo($body);
+
+      sortedRgbArr = hsl_array.slice(60,79);
+      sortedRgbArr.sort(compareFirstColumn);
+      for ( z = 0; z < sortedRgbArr.length; z++) {
+        $("#book-shelf3 .b" + sortedRgbArr[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+
+      var my_hr4 = document.createElement("hr");
+      $(my_hr4).appendTo($body);
+
+      sortedRgbArr = hsl_array.slice(80,99);
+      sortedRgbArr.sort(compareFirstColumn);
+      for ( z = 0; z < sortedRgbArr.length; z++) {
+        $("#book-shelf3 .b" + sortedRgbArr[z][3]).css("border", "0px solid green").appendTo($body);
+      }
+
+    });
 	  </script>
 
 
